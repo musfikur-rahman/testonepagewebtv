@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IPTV</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/0.5.14/hls.min.js"></script>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+  <div id="main-page" class="w3-display-middle">
+    <div id="data"></div>
+  </div>
+
+  <div id="modal-page">
+    <video id="video" controls="controls" autoplay="autoplay" crossorigin="anonymous" style="z-index:1;" class="w3-display-middle"></video>
+    <span id="close-button" style="z-index:2;" class="w3-button w3-display-topright w3-red">&times;</span>
+  </div>
+
+  <script type="text/javascript">
+    async function loadFile() {
+      var result = null;
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.open('GET', 'https://musfikur-rahman.github.io/iptv/iptv.m3u', false);
+      xmlhttp.send();
+      if (xmlhttp.status==200) {
+        result = xmlhttp.responseText;
+      }
+      return result;
+    }
+
+    document.getElementById('data') = async function(){
+      var array = loadFile().split('/');
+      return array[0];
+    }
+    
+  	window.onresize = function () {
+	    windowSize();
+	  }
+
+    document.onreadystatechange = function () {
+      windowSize();
+    }
+
+    async function windowSize() {
+      var videodisplay = document.getElementById("hls-video");
+      videodisplay.style.height = (document.documentElement.clientHeight - 5) + 'px';
+      videodisplay.style.width = (document.documentElement.clientWidth - 5) + 'px';
+      videodisplay.style.overflow = scroll;
+    }
+  </script>
+  
+</body>
+</html>
